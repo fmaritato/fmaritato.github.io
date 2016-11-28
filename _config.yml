@@ -3,7 +3,7 @@ encoding: utf-8
 markdown: kramdown
 highlighter: rouge
 
-theme: minimal-mistakes-jekyll
+#theme: minimal-mistakes-jekyll
 
 timezone: America/Los_Angeles
 
@@ -17,8 +17,14 @@ author:
   instagram: "frankmarit"
   linkedin: https://www.linkedin.com/in/frank-maritato-5b32b1
 
-
 gems:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+
+whitelist:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist

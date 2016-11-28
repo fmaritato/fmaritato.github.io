@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
-
-gem 'jekyll', "~> 3.3.1"
-gem "minimal-mistakes-jekyll"
+gemspec
+# Once github supports this version, then switch
+#gem 'jekyll', "~> 3.3.1"
+#gem "minimal-mistakes-jekyll"
