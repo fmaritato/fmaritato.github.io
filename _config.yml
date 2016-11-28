@@ -1,0 +1,42 @@
+encoding: utf-8
+
+markdown: kramdown
+highlighter: rouge
+
+theme: minimal-mistakes-jekyll
+
+timezone: America/Los_Angeles
+
+author:
+  name: "Frank Maritato"
+  avatar: "/assets/images/me.jpg"
+  bio: "Data Architect for LootCrate"
+  location: "Southern California"
+  github: "fmaritato"
+  twitter: "frankmarit"
+  instagram: "frankmarit"
+  linkedin: https://www.linkedin.com/in/frank-maritato-5b32b1
+
+
+gems:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+
+paginate: 5
+paginate_path: /page:num/
