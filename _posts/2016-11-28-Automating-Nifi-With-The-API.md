@@ -7,7 +7,7 @@ title: Automating Nifi with the API
 This post discusses how to use the [Apache Nifi Rest API version 1.0.0](https://nifi.apache.org/docs/nifi-docs/rest-api/) 
 to automate some tasks like importing and instantiating a template to a running instance, starting and stopping processors
 and updating configuration properties for a processor. I did create a library for basic http get, post, put, delete commands.
-You can read through that in {% post_url 2016-11-28-Nifi-Api-Python-Library %}.
+You can read through that in [this article]({{ site.baseurl }}{% post_url 2016-11-28-Nifi-Api-Python-Library %}).
 
 Note: I've been a Java programmer for over 15 years and all of these examples are in Python so I'm sure there are better
 ways to do things syntactically than how I do it.
@@ -28,7 +28,7 @@ The basic steps for installing this template are:
 * Upload the new template.
 * Instantiate it.
 
-To load the template into memory, I imported xml.etree.ElementTree library. Then I grab the name of the process group.
+To load the template into memory, I imported xml.etree.ElementTree library. Then I grab the name of the template.
 ```python
 import xml.etree.ElementTree as ET
 
@@ -67,10 +67,39 @@ self.remote_post(self.url + '/process-groups/{}/templates/upload'.format(process
                                 'application/xml')
 ```
 
-Now, let's instantiate the template
+Now, let's instantiate the template. You will need the process_group_id and the template_id from previous steps.
 ```python
+# originX/Y are the coordinates where to put the template. I have it hardcoded to 0,0 for now.
+instantiate_templ_req_entity = {
+    'templateId': template_id,
+    'originX': 0.0,
+    'originY': 0.0
+}
 self.remote_post_data('/process-groups/{}/template-instance'.format(process_group_id),
                                      instantiate_templ_req_entity)
 ```
 
+I'm sure you are thinking to yourself, "self, but my processors have some sensitive configuration parameters and I know those 
+values aren't stored in the template. Now what?" Now you will need to update these processors with your sensitive values. All this involves
+is a PUT: 
 
+```python
+new_processor = {
+    "id": processor["id"],
+    "component": {
+        "config": {
+            "properties": {
+# Put your key/value pairs here...
+            }
+        },
+        "id": processor["component"]["id"]
+    },
+    "revision": {
+        "version": processor["revision"]["version"]
+    }
+}
+self.remote_put_data('/processors/{}'.format(processor['id']), new_processor)
+```
+
+It is important to note that the "component"->"id" element is required and the "revision"->"version" is required. Revision is required
+any time you are updating any component. 
