@@ -29,6 +29,7 @@ The basic steps for installing this template are:
 * Instantiate it.
 
 To load the template into memory, I imported xml.etree.ElementTree library. Then I grab the name of the template.
+
 ```python
 import xml.etree.ElementTree as ET
 
@@ -61,6 +62,7 @@ if remote_template is not None:
 ```
 
 Now that we have deleted the existing template, we can upload the new one.
+
 ```python
 self.remote_post(self.url + '/process-groups/{}/templates/upload'.format(process_group_id),
                                 filename,
@@ -68,6 +70,7 @@ self.remote_post(self.url + '/process-groups/{}/templates/upload'.format(process
 ```
 
 Now, let's instantiate the template. You will need the process_group_id and the template_id from previous steps.
+
 ```python
 # originX/Y are the coordinates where to put the template. I have it hardcoded to 0,0 for now.
 instantiate_templ_req_entity = {
