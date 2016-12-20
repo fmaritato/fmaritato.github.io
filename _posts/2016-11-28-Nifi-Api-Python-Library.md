@@ -10,6 +10,7 @@ demonstrates how to use get, put, post and delete along with some convenience fu
 
 # Code
 Let's start with the basics: get, put, post, delete:
+
 ```python
     def remote_put_data(self, path, data):
         response = requests.put(self.url + path, json=data, headers={'Accept': 'application/json',
